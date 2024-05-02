@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Project</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Welcome to the Arithmetic Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>Hello, this is a sample project using HTML, CSS, and JavaScript.</p>
-    <button onclick="displayDate()">Display Current Date</button>
-    <p id="date"></p>
-    <script src="script.js"></script>
+    <h1>Welcome to the Arithmetic Game</h1>
+    <p>Please select your level:</p>
+    <button onclick="window.location.href='game.html?level=0'">Level 0 (No Time Limit)</button>
+    <button onclick="window.location.href='game.html?level=1'">Level 1 (20 Seconds Per Question)</button>
+    <button onclick="window.location.href='game.html?level=2'">Level 2 (10 Seconds Per Question)</button>
 </body>
 </html>

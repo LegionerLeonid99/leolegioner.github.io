@@ -160,3 +160,20 @@ function proceedAfterModal() {
         endGame();
     }
 }
+//Falling numbers for background
+function createFallingNumber() {
+    const numberContainer = document.getElementById('animatedBackground');
+    const number = document.createElement('div');
+    number.className = 'falling-number';
+    number.textContent = Math.floor(Math.random() * 10); // Random number between 0 and 9
+    number.style.left = `${Math.random() * 100}%`; // Random horizontal position
+    number.style.color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`; // Random color
+    number.style.fontSize = `${Math.random() * 24 + 12}px`; // Random font size between 12px and 36px
+
+    number.onanimationend = () => number.remove(); // Remove number after animation ends
+
+    numberContainer.appendChild(number);
+}
+
+// Reduce interval time to make numbers appear faster
+setInterval(createFallingNumber, 50); // Numbers appear every n milliseconds

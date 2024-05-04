@@ -89,7 +89,7 @@ function startTimer(seconds) {
         timerDisplay.innerHTML = `Time remaining: ${seconds} seconds`;
         if (seconds <= 0) {
             clearInterval(timerId);
-            alert("Time's up!");
+            showModal("Time's up!");
             moveToNextQuestion(); // Move to the next question when time runs out
         }
     }, 1000);
@@ -111,9 +111,9 @@ function checkAnswer(selectedAnswer) {
     const question = questions[currentQuestion];
     if (selectedAnswer === question.correctAnswer) {
         score++;
-        alert("Correct!");
+        showModal("Correct!");
     } else {
-        alert(`Wrong! The correct answer was ${question.correctAnswer}.`);
+        showModal(`Wrong! The correct answer was ${question.correctAnswer}.`);
     }
     moveToNextQuestion(); // Proceed to the next question
 }
@@ -130,4 +130,33 @@ function initGame() {
     level = parseInt(urlParams.get('level')); // Get the selected level from URL
     generateQuestions(); // Generate all questions
     displayQuestion(); // Display the first question
+}
+
+function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = "none";
+    proceedAfterModal();
+}
+
+function showModal(message) {
+    const modal = document.getElementById('modal');
+    const modalText = document.getElementById('modalText');
+    const closeButton = document.getElementsByClassName('close')[0];
+
+    modalText.textContent = message;
+    modal.style.display = "block";
+
+    // Close modal when the close button is clicked
+    closeButton.onclick = function() {
+        closeModal();
+    }
+}
+
+function proceedAfterModal() {
+    // Function to handle what happens after the modal closes
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    } else {
+        endGame();
+    }
 }

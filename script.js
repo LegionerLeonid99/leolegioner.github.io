@@ -30,6 +30,15 @@ function generateQuestions() {
     }
 }
 
+function moveToNextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    } else {
+        endGame();
+    }
+}
+
 function calculateAnswer(num1, num2, operation) {
     switch (operation) {
         case '+': return num1 + num2;
@@ -63,6 +72,7 @@ function startTimer(seconds) {
             clearInterval(timerId);
             alert("Time's up!");
             moveToNextQuestion();
+            endGame();
         }
     }, 1000);
 }
@@ -88,7 +98,7 @@ function displayQuestion() {
 function checkAnswer(selectedAnswer) {
     const question = questions[currentQuestion];
     if (selectedAnswer === question.correctAnswer) {
-        score++;
+        score += 1000;
         alert("Correct!");
     } else {
         alert(`Wrong! The correct answer was ${question.correctAnswer}.`);

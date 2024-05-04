@@ -25,6 +25,35 @@ h1 {
     margin-bottom: 20px;
 }
 
+.level-button {
+    background-color: #4caf50; /* Material Green */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex; /* Make buttons block to occupy full width */
+    justify-content: center;
+}
+
+.level-button:hover {
+    background-color: #45a049;
+    transform: scale(1.1); /* Scale up on hover for effect */
+}
+
+.level-button:focus {
+    outline: 2px solid #ffa500; /* Orange outline for focus */
+}
+
+.timer {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #ffa500; /* Orange color for visibility */
+}
+
 .question {
     font-size: 20px;
     color: #333333;
@@ -76,10 +105,4 @@ h1 {
 
 .restart-button:hover {
     background-color: #e55347;
-}
-
-.timer {
-    font-size: 16px;
-    margin: 10px 0;
-    color: #ffa500; /* Orange color for visibility */
 }

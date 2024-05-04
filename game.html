@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Arithmetic Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Welcome to My Website</h1>
-    <p>Hello, this is a sample project using HTML, CSS, and JavaScript.</p>
-    <button onclick="displayDate()">Display Current Date</button>
-    <p id="date"></p>
+<body onload="initGame()">
+    <div class="game-container">
+        <h1>Arithmetic Game</h1>
+        <div id="questionDisplay" class="question"></div>
+        <div id="answersContainer" class="answers"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
+

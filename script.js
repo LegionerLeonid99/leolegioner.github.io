@@ -1,101 +1,95 @@
-
-//Testing Function
-function displayDate() {
-    document.getElementById('date').innerHTML = new Date().toDateString();
-}
-
-
-//Arithmetics
-
-// Define game parameters
-const numQuestions = 10;
 let score = 0;
 let currentQuestion = 0;
 let timerId;
-let levelTimeLimits = [Infinity, 20000, 10000]; // Time limits in milliseconds
+let questions = [];
 
-function generateQuestion() {
+function generateQuestions() {
     const operations = ['+', '-', '*', '/'];
-    let num1 = Math.floor(Math.random() * 12) + 1;
-    let num2 = Math.floor(Math.random() * 12) + 1;
-    const operation = operations[Math.floor(Math.random() * operations.length)];
+    for (let i = 0; i < 10; i++) {
+        let num1 = Math.floor(Math.random() * 12) + 1;
+        let num2 = Math.floor(Math.random() * 12) + 1;
+        const operation = operations[Math.floor(Math.random() * operations.length)];
 
-    // Ensure non-negative results for subtraction
-    if (operation === '-') {
-        if (num1 < num2) {
-            [num1, num2] = [num2, num1]; // Swap to avoid negative results
+        if (operation === '-') {
+            if (num1 < num2) {
+                [num1, num2] = [num2, num1]; // Swap to avoid negative results
+            }
+        }
+
+        if (operation === '/') {
+            num1 = num1 * num2; // Ensure a whole number result
+        }
+
+        let correctAnswer = calculateAnswer(num1, num2, operation);
+        let answers = generateFalseAnswers(correctAnswer);
+        answers.push(correctAnswer);
+        answers.sort(() => Math.random() - 0.5); // Shuffle answers
+
+        questions.push({ num1, num2, operation, correctAnswer, answers });
+    }
+}
+
+function calculateAnswer(num1, num2, operation) {
+    switch (operation) {
+        case '+': return num1 + num2;
+        case '-': return num1 - num2;
+        case '*': return num1 * num2;
+        case '/': return num1 / num2;
+    }
+}
+
+function generateFalseAnswers(correctAnswer) {
+    let answers = new Set();
+    answers.add(correctAnswer);
+    while (answers.size < 3) {
+        let variation = Math.floor(Math.random() * 5) - 2; // Range from -2 to 2
+        let newAnswer = correctAnswer + variation;
+        if (newAnswer !== correctAnswer && newAnswer >= 0) {
+            answers.add(newAnswer);
         }
     }
-
-    // Ensure non-negative, whole number results for division
-    if (operation === '/') {
-        num1 = num1 * num2; // Adjust to ensure whole number results
-    }
-
-    return { num1, num2, operation };
+    return Array.from(answers);
 }
 
-function calculateAnswer(question) {
-    switch (question.operation) {
-        case '+':
-            return question.num1 + question.num2;
-        case '-':
-            return question.num1 - question.num2;
-        case '*':
-            return question.num1 * question.num2;
-        case '/':
-            return question.num1 / question.num2;
-    }
+function displayQuestion() {
+    const question = questions[currentQuestion];
+    const questionDisplay = document.getElementById('questionDisplay');
+    questionDisplay.innerHTML = `Question ${currentQuestion + 1}: What is ${question.num1} ${question.operation} ${question.num2}?`;
+    const answersContainer = document.getElementById('answersContainer');
+    answersContainer.innerHTML = '';
+    question.answers.forEach(answer => {
+        let button = document.createElement('button');
+        button.textContent = answer;
+        button.onclick = function() { checkAnswer(answer); };
+        button.classList.add('answer-button');
+        answersContainer.appendChild(button);
+    });
 }
 
-function askQuestion() {
-    if (currentQuestion >= numQuestions) {
-        endGame();
-        return;
-    }
-
-    const question = generateQuestion();
-    const userAnswer = prompt(`Question ${currentQuestion + 1}: What is ${question.num1} ${question.operation} ${question.num2}?`);
-    if (parseInt(userAnswer) === calculateAnswer(question)) {
+function checkAnswer(selectedAnswer) {
+    const question = questions[currentQuestion];
+    if (selectedAnswer === question.correctAnswer) {
         score++;
         alert("Correct!");
     } else {
-        alert(`Wrong! The correct answer was ${calculateAnswer(question)}.`);
+        alert(`Wrong! The correct answer was ${question.correctAnswer}.`);
     }
-
     currentQuestion++;
-    if (currentQuestion < numQuestions) {
-        setupQuestion(level);
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    } else {
+        endGame();
     }
-}
-
-function setupQuestion(level) {
-    if (timerId) clearTimeout(timerId);
-    askQuestion();
-    if (level > 0) {
-        timerId = setTimeout(() => {
-            alert("Time's up!");
-            currentQuestion++;
-            if (currentQuestion < numQuestions) {
-                setupQuestion(level);
-            } else {
-                endGame();
-            }
-        }, levelTimeLimits[level]);
-    }
-}
-
-function startGame(level) {
-    score = 0;
-    currentQuestion = 0;
-    setupQuestion(level);
 }
 
 function endGame() {
-    alert(`Game Over! Your score was ${score} out of ${numQuestions}.`);
-    if (timerId) clearTimeout(timerId);
+    sessionStorage.setItem('score', score);
+    window.location.href = 'end.html';
 }
 
-// Example of starting a game at level 0 (no time limit)
-// Change to startGame(1) for 20 seconds, startGame(2) for 10 seconds limit
-startGame(0);
+function initGame() {
+    const urlParams = new URLSearchParams(window.location.search);
+    level = parseInt(urlParams.get('level'));
+    generateQuestions();
+    displayQuestion();
+}

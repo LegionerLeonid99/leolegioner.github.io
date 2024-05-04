@@ -2,6 +2,7 @@ let score = 0;
 let currentQuestion = 0;
 let timerId;
 let questions = [];
+let level = 0; // Default level
 
 function generateQuestions() {
     const operations = ['+', '-', '*', '/'];
@@ -51,10 +52,24 @@ function generateFalseAnswers(correctAnswer) {
     return Array.from(answers);
 }
 
+function startTimer(seconds) {
+    const timerDisplay = document.getElementById('timerDisplay');
+    timerDisplay.innerHTML = `Time remaining: ${seconds} seconds`;
+    if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => {
+        seconds--;
+        timerDisplay.innerHTML = `Time remaining: ${seconds} seconds`;
+        if (seconds <= 0) {
+            clearInterval(timerId);
+            alert("Time's up!");
+            moveToNextQuestion();
+        }
+    }, 1000);
+}
+
 function displayQuestion() {
     const question = questions[currentQuestion];
-    const questionDisplay = document.getElementById('questionDisplay');
-    questionDisplay.innerHTML = `Question ${currentQuestion + 1}: What is ${question.num1} ${question.operation} ${question.num2}?`;
+    document.getElementById('questionDisplay').innerHTML = `Question ${currentQuestion + 1}: What is ${question.num1} ${question.operation} ${question.num2}?`;
     const answersContainer = document.getElementById('answersContainer');
     answersContainer.innerHTML = '';
     question.answers.forEach(answer => {
@@ -64,6 +79,10 @@ function displayQuestion() {
         button.classList.add('answer-button');
         answersContainer.appendChild(button);
     });
+
+    if (level !== 0) {
+        startTimer(level === 1 ? 20 : 10);
+    }
 }
 
 function checkAnswer(selectedAnswer) {
@@ -93,3 +112,4 @@ function initGame() {
     generateQuestions();
     displayQuestion();
 }
+

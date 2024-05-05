@@ -27,6 +27,7 @@ h1 {
 }
 
 .level-button {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #4caf50; /* Material Green */
     color: white;
     border: none;
@@ -41,33 +42,39 @@ h1 {
 }
 
 .level-button:hover {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #45a049;
     transform: scale(1.1); /* Scale up on hover for effect */
 }
 
 .level-button:focus {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     outline: 2px solid #ffa500; /* Orange outline for focus */
 }
 
 .timer {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     font-size: 16px;
     margin: 10px 0;
     color: #ffa500; /* Orange color for visibility */
 }
 
 .question {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     font-size: 20px;
     color: #333333;
     margin-bottom: 20px;
 }
 
 .answers {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .answer-button {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #4caf50; /* Material Green */
     color: white;
     border: none;
@@ -79,21 +86,25 @@ h1 {
 }
 
 .answer-button:hover {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #45a049;
     transform: scale(1.05);
 }
 
 .answer-button:focus {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     outline: 2px solid #ffa500; /* Orange outline for focus */
 }
 
 .final-score {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     font-size: 24px;
     color: #333;
     margin: 20px 0;
 }
 
 .restart-button {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #ff6347;
     color: white;
     border: none;
@@ -105,6 +116,7 @@ h1 {
 }
 
 .restart-button:hover {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #e55347;
 }
 
@@ -123,6 +135,7 @@ h1 {
 
 /* Modal Content */
 .modal-content {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     background-color: #fefefe;
     margin: 15% auto; /* Centered in the viewport */
     padding: 20px;
@@ -135,6 +148,7 @@ h1 {
 
 /* The Close Button (top-right corner of the modal) */
 .close {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     position: absolute;
     top: 5px;
     right: 15px;
@@ -146,6 +160,7 @@ h1 {
 
 .close:hover,
 .close:focus {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     color: #333;
     cursor: pointer;
 }
@@ -183,6 +198,7 @@ h1 {
 }
 
 .falling-number {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
     position: absolute;
     left: 50%;
     font-size: 24px;

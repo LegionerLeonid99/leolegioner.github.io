@@ -111,8 +111,10 @@ function checkAnswer(selectedAnswer) {
     const question = questions[currentQuestion];
     if (selectedAnswer === question.correctAnswer) {
         score++;
+        playSound('applauseAudio');
         showModal("Correct!");
     } else {
+        playSound('incorrectAudio');
         showModal(`Wrong! The correct answer was ${question.correctAnswer}.`);
     }
     moveToNextQuestion(); // Proceed to the next question
@@ -160,6 +162,7 @@ function proceedAfterModal() {
         endGame();
     }
 }
+
 //Falling numbers for background
 function createFallingNumber() {
     const numberContainer = document.getElementById('animatedBackground');
@@ -175,5 +178,11 @@ function createFallingNumber() {
     numberContainer.appendChild(number);
 }
 
-// Reduce interval time to make numbers appear faster
-setInterval(createFallingNumber, 50); // Numbers appear every n milliseconds
+// Reduce interval time to make falling numbers appear faster
+setInterval(createFallingNumber, 100); // Numbers appear every n milliseconds
+
+//Playing sounds
+function playSound(audioId) {
+    const sound = document.getElementById(audioId);
+    sound.play();
+}

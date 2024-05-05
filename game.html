@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Arithmetic Game</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body onload="initGame()">
+    <!-- Audio element for Correct answer -->
+    <audio id="applauseAudio" src="Sounds/cute-level-up-2-189851.mp3" preload="auto"></audio>
+    <!-- Audio element for Inorrect answer -->
+    <audio id="incorrectAudio" src="Sounds/fail-144746.mp3" preload="auto"></audio>
+    <!-- Animated background -->
     <div id="animatedBackground"></div>
     <!-- Modal structure -->
     <div id="modal" class="modal" style="display: none">

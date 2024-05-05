@@ -183,6 +183,9 @@ setInterval(createFallingNumber, 100); // Numbers appear every n milliseconds
 
 //Playing sounds
 function playSound(audioId) {
-    const sound = document.getElementById(audioId);
-    sound.play();
+    const audio = document.getElementById(audioId);
+    audio.play().catch(error => {
+        console.error("Playback error:", error);
+        // Handle browsers that block autoplay (e.g., show a message to the user to interact with the page)
+    });
 }
